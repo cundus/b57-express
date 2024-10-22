@@ -32,3 +32,65 @@ export const createUser = async (req: Request, res: Response) => {
       });
    }
 };
+
+export const updateUser = async (req: Request, res: Response) => {
+   try {
+      const { body } = req;
+      const { id } = req.params;
+
+      const updatedUser = await userServices.updateUser({ ...body, id: +id });
+
+      res.json(updatedUser);
+   } catch (error) {
+      console.log(error);
+
+      res.status(500).json({
+         message: (error as Error).message,
+      });
+   }
+};
+
+export const deleteUser = async (req: Request, res: Response) => {
+   try {
+      const { id } = req.params;
+
+      const deletedUser = await userServices.deleteUser(parseInt(id));
+
+      res.json(deletedUser);
+   } catch (error) {
+      console.log(error);
+
+      res.status(500).json({
+         message: (error as Error).message,
+      });
+   }
+};
+
+export const getUserById = async (req: Request, res: Response) => {
+   try {
+      const { id } = req.params;
+
+      const user = await userServices.findUniqueUser(parseInt(id));
+
+      res.json(user);
+   } catch (error) {
+      console.log(error);
+      res.status(500).json({
+         message: (error as Error).message,
+      });
+   }
+};
+
+export const getUserByQuery = async (req: Request, res: Response) => {
+   try {
+      const { name } = req.query;
+      const user = await userServices.findUserByName(name as string);
+
+      res.json(user);
+   } catch (error) {
+      console.log(error);
+      res.status(500).json({
+         message: (error as Error).message,
+      });
+   }
+};
