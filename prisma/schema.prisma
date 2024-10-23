@@ -16,4 +16,15 @@ model User {
   address  String?
   password String
   email    String  @unique
+
+  threads Threads[]
+}
+
+model Threads {
+  id      Int     @id @default(autoincrement())
+  content String?
+  file    String?
+  userId  Int
+
+  user User @relation(references: [id], fields: [userId])
 }
