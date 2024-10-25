@@ -13,4 +13,6 @@ threadRouter.post(
 
 threadRouter.get("/", threadController.getThreads);
 
+threadRouter.get("/:id", threadController.getThreadById);
+
 export default threadRouter;
